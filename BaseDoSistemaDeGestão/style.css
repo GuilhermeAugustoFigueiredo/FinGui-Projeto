@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  outline: none;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f4f4;
+  background-size: cover;
+}
+
+main {
+  max-width: 550px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resumo, .novoItem, .divTabela {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.resumo > div {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 5px #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  width: 150px;
+}
+
+.novoItem > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.novoItem > button {
+  background-color: #2C73D2;
+  color: white;
+  border: none;
+  padding: 0 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 34px;
+}
+
+input, select {
+  padding: 5px;
+}
+
+table {
+  width: 98%;
+  padding: 20px 0;
+  border-radius: 5px;
+}
+
+th {
+  text-align: start;
+  border-bottom: inset;
+  padding-bottom: 5px;
+}
+
+i {
+  font-size: 25px;
+}
+
+.bxs-chevron-up-circle {
+  color: #00C9A7;
+}
+
+.bxs-chevron-down-circle {
+  color: #D83121;
+}
+
+.colunaAcao {
+  width: 40px;
+  text-align: center;
+}
+
+.colunaAcao > button {
+  background: transparent;
+  border: none;
+}
+
+.colunaValor {
+  width: 30%;
+}
+
+.colunaTipo {
+  width: 80px;
+  text-align: center;
+}
