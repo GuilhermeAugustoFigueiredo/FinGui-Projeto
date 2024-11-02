@@ -13,7 +13,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background: #201b2c;
+  background-color: #201b2c;
   background-size: cover;
   flex-direction: column;
 }
@@ -178,6 +178,30 @@ canvas {
   max-width: 400px;
   max-height: 200px;
   margin: 20px 0;
+}
+
+.btn-addItem {
+  background-color: #53eca4;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-addItem:hover {
+  background-color: #41b487;
+  transform: scale(1.05);
+}
+
+.btn-addItem:active {
+  background-color: #36a37d;
 }
 
 .btn-pdf {
