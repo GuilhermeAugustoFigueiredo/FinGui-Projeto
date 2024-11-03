@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
+/* Reset básico */
 * {
   margin: 0;
   padding: 0;
@@ -9,36 +8,32 @@
 }
 
 body {
-  height: 100vh;
+  background-color: #201b2c;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  background-color: #201b2c;
-  background-size: cover;
-  flex-direction: column;
+  align-items: center;
+  height: 100vh;
 }
 
+/* Estrutura principal */
 main {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 90%;
+  max-width: 800px;
   background-color: #2f2841;
+  padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  padding: 20px;
   color: #f0ffffde;
   overflow-y: auto;
 }
 
-.resumo, .novoItem, .divTabela {
-  width: 100%;
+/* Estilo do resumo */
+.resumo {
   display: flex;
-  justify-content: center;
-  padding: 10px 0;
-  gap: 40px;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #fff;
 }
 
 .resumo > div {
@@ -51,181 +46,102 @@ main {
   background-color: #3f2c4a;
 }
 
-.resumo > div span {
-  font-weight: bold;
-  color: #fff;
-}
-
-.novoItem {
-  width: 100%;
+/* Estilo do novo item */
+.novo-item {
   display: flex;
-  justify-content: space-between;
   gap: 10px;
-  padding: 10px;
+  margin-bottom: 20px;
   background-color: #3f2c4a;
   border-radius: 10px;
-  box-shadow: 0px 0px 5px #ccc;
-}
-
-.novoItem > div {
-  display: flex;
-  flex-direction: column;
-  width: 30%;
-}
-
-.novoItem > button {
-  background-color: #53eca4;
-  color: white;
-  border: none;
   padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  height: 40px;
+}
+
+.novo-item div {
+  flex: 1;
+}
+
+.novo-item label {
+  font-size: 14px;
+  color: #f0ffffde;
+}
+
+.novo-item input, .novo-item select {
   width: 100%;
-}
-
-.novoItem > button:hover {
-  background-color: #41b487;
-}
-
-input, select {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  font-size: 14px;
   background-color: #3f2c4a;
   color: #f0ffffde;
 }
 
-input::placeholder, select::placeholder {
+.novo-item input::placeholder, .novo-item select::placeholder {
   color: #f0ffff94;
 }
 
-table {
+.botao-adicionar {
+  padding: 10px;
+  background-color: #53eca4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.botao-adicionar:hover {
+  background-color: #41b487;
+}
+
+/* Estilo da tabela */
+.tabela table {
   width: 100%;
-  margin-top: 20px;
   border-collapse: collapse;
+  margin-bottom: 20px;
 }
 
-th, td {
-  text-align: left;
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
-}
-
-thead th {
-  background-color: #3f2c4a;
+.tabela th, .tabela td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
   color: #f0ffffde;
+}
+
+.tabela th {
+  background-color: #3f2c4a;
   font-weight: bold;
 }
 
-tbody tr:hover {
-  background-color: #f1f1f1;
-}
-
-i {
-  font-size: 25px;
-}
-
-.bxs-chevron-up-circle {
-  color: #53eca4;
-}
-
-.bxs-chevron-down-circle {
-  color: #D83121;
-}
-
-.colunaAcao {
-  width: 40px;
-  text-align: center;
-}
-
-.colunaAcao > button {
-  background: transparent;
+.tabela button {
+  background: none;
   border: none;
+  color: #D83121;
   cursor: pointer;
+  font-size: 18px;
 }
 
-.colunaAcao > button:hover {
-  color: red;
-}
-
-canvas {
-  margin-top: 20px;
-  max-width: 100%;
-}
-
-.divTabela {
+/* Estilo do botão de baixar PDF */
+.botao-pdf {
   width: 100%;
+  padding: 12px 20px;
+  background-color: #53eca4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
 }
 
-h1 {
-  font-size: 36px;
-  color: #53eca4;
-  margin-bottom: 20px;
+.botao-pdf:hover {
+  background-color: #41b487;
 }
 
-h1:before {
-  content: "FinGui";
-  font-size: 48px;
-  font-weight: 900;
-  color: #00ff88;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
+/* Gráfico */
 canvas {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
   max-width: 400px;
   max-height: 200px;
-  margin: 20px 0;
 }
-
-.btn-addItem {
-  background-color: #53eca4;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 14px;
-  transition: background-color 0.3s, transform 0.3s;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.btn-addItem:hover {
-  background-color: #41b487;
-  transform: scale(1.05);
-}
-
-.btn-addItem:active {
-  background-color: #36a37d;
-}
-
-.btn-pdf {
-  background-color: #53eca4;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 14px;
-  transition: background-color 0.3s, transform 0.3s;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.btn-pdf:hover {
-  background-color: #41b487;
-  transform: scale(1.05);
-}
-
-.btn-pdf:active {
-  background-color: #36a37d;
-}
-
-
