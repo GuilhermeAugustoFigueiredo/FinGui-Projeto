@@ -26,6 +26,12 @@ main {
   color: #f0ffffde;
   overflow-y: auto;
 }
+/* Estilo do Título*/
+.titulo {
+  color:#53eca4;
+  display: flex;
+  justify-content: center;
+}
 
 /* Estilo do resumo */
 .resumo {
