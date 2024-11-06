@@ -18,6 +18,7 @@ CREATE TABLE itens_financas (
     CONSTRAINT chkTipo CHECK (tipo IN ('entrada', 'saida')),
     FOREIGN KEY (fkCliente) REFERENCES cliente_cadastro(idCliente)
 );
+
 -- -- EXEMPLOS DE INSERÇÃO DE DADOS, POSTERIOR FAZER COM API (?)
 -- INSERT INTO cliente_cadastro (nome, email, senha) VALUES
 -- ('Guilherme Augusto Figueiredo', 'guilherme.figueiredo@email.com', 'FinGui123'),
