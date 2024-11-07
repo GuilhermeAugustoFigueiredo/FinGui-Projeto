@@ -1,213 +1,167 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Organizador de Finanças | Fingui</title>
-    <link
-      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styleDashboard.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  </head>
-  <body>
-    <main>
-      <!-- Forma Padrão Zerada dos contadores -->
-       <div class="titulo">
-        <h1>Bem vindo(a)!</h1>
-       </div>
-       <br>
-      <div class="resumo">
-        <div>Entrada: R$ <span class="entradas">0.00</span></div>
-        <div>Saída: R$ <span class="saidas">0.00</span></div>
-        <div>Total: R$ <span class="total">0.00</span></div>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Organizador de Finanças</title>
+  <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styleDashboard.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <main>
+    <h1 class="titulo">Organizador de Finanças</h1>
 
-      <!-- Campo vazio adicionar um novo item-->
-      <div class="novo-item">
-        <div>
-          <label>Descrição</label>
-          <input type="text" id="descricao" />
-        </div>
-        <div>
-          <label>Valor</label>
-          <input type="number" id="valor" />
-        </div>
-        <div>
-          <label>Tipo</label>
-          <select id="tipo">
-            <option>Entrada</option>
-            <option>Saída</option>
-          </select>
-        </div>
-        <button class="botao-adicionar" onclick="adicionarItem()">
-          Adicionar Item
-        </button>
-      </div>
+    <!-- Resumo das finanças -->
+    <div class="resumo">
+      <div>Entrada: R$ <span class="entradas">0.00</span></div>
+      <div>Saída: R$ <span class="saidas">0.00</span></div>
+      <div>Total: R$ <span class="total">0.00</span></div>
+    </div>
 
-      <!-- Tabela que exibe os itens adicionados -->
-      <div class="tabela">
-        <table>
-          <thead>
-            <tr>
-              <th>Descrição</th>
-              <th>Valor</th>
-              <th>Tipo</th>
-              <th>Excluir</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-
-      <!-- Gráfico (dashboard) de entradas e saidas -->
+    <!-- Campos para adicionar novo item -->
+    <div class="novo-item">
       <div>
-        <canvas id="grafico" width="400" height="200"></canvas>
+        <label>Descrição</label>
+        <input type="text" id="descricao" placeholder="Digite a descrição"/>
       </div>
+      <div>
+        <label>Valor</label>
+        <input type="number" id="valor" placeholder="Digite o valor"/>
+      </div>
+      <div>
+        <label>Tipo</label>
+        <select id="tipo">
+          <option>Entrada</option>
+          <option>Saída</option>
+        </select>
+      </div>
+      <button class="botao-adicionar" onclick="adicionarItem()">Adicionar Item</button>
+    </div>
 
-      <!-- Botão para baixar o relatório em PDF -->
-      <button class="botao-pdf" onclick="baixarRelatorio()">
-        Baixar Relatório PDF
-      </button>
-    </main>
+    <!-- Tabela dos itens adicionados -->
+    <div class="tabela">
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th>Tipo</th>
+            <th>Excluir</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
 
-    <script>
-      // Seleciona o corpo da tabela e elementos do formulário
-      const corpoTabela = document.querySelector("tbody");
-      const descricao = document.getElementById("descricao");
-      const valor = document.getElementById("valor");
-      const tipo = document.getElementById("tipo");
+    <!-- Gráfico de entradas e saídas -->
+    <canvas id="grafico" width="400" height="200"></canvas>
 
-      // Seleciona os elementos de resumo
-      const entradas = document.querySelector(".entradas");
-      const saidas = document.querySelector(".saidas");
-      const totalGeral = document.querySelector(".total");
+    <!-- Botão para baixar relatório PDF -->
+    <button class="botao-pdf" onclick="baixarRelatorio()">Baixar Relatório PDF</button>
+  </main>
 
-      // vetor para armazenar os itens, uma lista
-      let itens = [];
+  <script>
+    const tabela = document.querySelector("tbody");
+    const descricao = document.getElementById("descricao");
+    const valor = document.getElementById("valor");
+    const tipo = document.getElementById("tipo");
+    const entradas = document.querySelector(".entradas");
+    const saidas = document.querySelector(".saidas");
+    const totalGeral = document.querySelector(".total");
 
-      // Configuração inicial do gráfico
-      const ctx = document.getElementById("grafico").getContext("2d");
-      const grafico = new Chart(ctx, {
-        type: "pie",
-        data: {
-          labels: ["Entradas", "Saídas"],
-          datasets: [
-            {
-              label: "Finanças",
-              data: [0, 0], // Entradas e Saídas
-              backgroundColor: ["#4CAF50", "#F44336"], // Verde para entradas e vermelho para saídas
-            },
-          ],
-        },
-        options: {
-          responsive: true, // Redimensiona o gráfico ao redimensionar a tela
-        },
+    let itens = [];
+
+    const grafico = new Chart(document.getElementById("grafico").getContext("2d"), {
+      type: "pie",
+      data: {
+        labels: ["Entradas", "Saídas"],
+        datasets: [{ data: [0, 0], backgroundColor: ["#4CAF50", "#F44336"] }]
+      },
+      options: { responsive: true }
+    });
+
+    function adicionarItem() {
+      if (!descricao.value || !valor.value) {
+        alert("Preencha todos os campos!");
+        return;
+      }
+
+      itens.push({
+        descricao: descricao.value,
+        valor: parseFloat(valor.value),
+        tipo: tipo.value
       });
 
-      // Função para adicionar um novo item na lista
-      function adicionarItem() {
-        // validação de preenchimento de campo
-        if (descricao.value === "" || valor.value === "" || tipo.value === "") {
-          return alert("Preencha todos os campos!");
+      descricao.value = "";
+      valor.value = "";
+
+      carregarItens();
+    }
+
+    function excluirItem(indice) {
+      itens.splice(indice, 1);
+      carregarItens();
+    }
+
+    function carregarItens() {
+      tabela.innerHTML = "";
+
+      itens.forEach((item, indice) => {
+        let linha = document.createElement("tr");
+        linha.innerHTML = `
+          <td>${item.descricao}</td>
+          <td>R$ ${item.valor.toFixed(2)}</td>
+          <td>${item.tipo === "Entrada" ? '<i class="bx bxs-chevron-up-circle"></i>' : '<i class="bx bxs-chevron-down-circle"></i>'}</td>
+          <td><button onclick="excluirItem(${indice})"><i class="bx bx-trash"></i></button></td>
+        `;
+        tabela.appendChild(linha);
+      });
+
+      atualizarTotais();
+    }
+
+    function atualizarTotais() {
+      let totalEntradas = 0;
+      let totalSaidas = 0;
+
+      itens.forEach((item) => {
+        if (item.tipo === "Entrada") {
+          totalEntradas += item.valor;
+        } else {
+          totalSaidas += item.valor;
         }
+      });
 
-        // Adiciona o novo item na lista
-        itens.push({
-          descricao: descricao.value,
-          valor: parseFloat(valor.value).toFixed(2),
-          tipo: tipo.value,
-        });
+      entradas.innerText = totalEntradas.toFixed(2);
+      saidas.innerText = totalSaidas.toFixed(2);
+      totalGeral.innerText = (totalEntradas - totalSaidas).toFixed(2);
 
-        // Atualiza os itens na tabela e limpa o formulário
-        carregarItens(); //coloca itens na tabela
-        descricao.value = ""; //limpa o campo descrição
-        valor.value = ""; //limpa o campo valor
-      }
+      grafico.data.datasets[0].data = [totalEntradas, totalSaidas];
+      grafico.update();
+    }
 
-      // Função para excluir um item da lista
-      function excluirItem(indice) {
-        itens.splice(indice, 1); // Remove o item com base no índice
-        carregarItens();
-      }
+    function baixarRelatorio() {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF();
 
-      // Função de carregar os itens na tabela e atualizar os totais
-      function carregarItens() {
-        corpoTabela.innerHTML = ""; // Limpa o conteúdo da tabela
+      pdf.setFontSize(18);
+      pdf.text("Relatório Financeiro", 105, 15, { align: "center" });
 
-        itens.forEach((item, indice) => {
-          //estrutura de repetição
-          let linha = document.createElement("tr"); // ternário  ? = condição : = else (ex: condição ? fazer A : Fazer B)
-          linha.innerHTML = `
-                    <td>${item.descricao}</td>
-                    <td>R$ ${item.valor}</td>                
-                    <td>${
-                      item.tipo === "Entrada"
-                        ? '<i class="bx bxs-chevron-up-circle"></i>'
-                        : '<i class="bx bxs-chevron-down-circle"></i>'
-                    }</td>
-                    <td><button onclick="excluirItem(${indice})"><i class="bx bx-trash"></i></button></td>
-                `; //neste caso, se for entrada, colocar desenho seta pra cima, se não, desenho seta pra baixo.
-          corpoTabela.appendChild(linha); // acrescenta item na tabela (acrecenta um novo filho)
-        });
+      const dataAtual = new Date().toLocaleDateString();
+      pdf.setFontSize(12);
+      pdf.text(`Data: ${dataAtual}`, 105, 25, { align: "center" });
 
-        // Atualiza os totais
-        atualizarTotais();
-      }
+      pdf.text(`Total de Entradas: R$ ${entradas.innerText}`, 15, 40);
+      pdf.text(`Total de Saídas: R$ ${saidas.innerText}`, 15, 50);
+      pdf.text(`Total Geral: R$ ${totalGeral.innerText}`, 15, 60);
 
-      // Função de calcular e atualizar os totais de entradas, saídas e o gráfico
-      function atualizarTotais() {
-        const totalEntradas = itens
-          .filter((item) => item.tipo === "Entrada") // ve se é entrada e soma no totalEntradas
-          .reduce((acumulado, item) => acumulado + Number(item.valor), 0)
-          .toFixed(2);
+      const image = grafico.toBase64Image();
+      pdf.addImage(image, "PNG", 15, 70, 180, 100);
 
-        const totalSaidas = itens
-          .filter((item) => item.tipo === "Saída") // ve se é saída e soma no totalSaidas
-          .reduce((acumulado, item) => acumulado + Number(item.valor), 0)
-          .toFixed(2);
-
-        entradas.innerText = totalEntradas;
-        saidas.innerText = totalSaidas;
-
-        // Calcula o total geral (entradas - saídas)
-        totalGeral.innerText = (totalEntradas - totalSaidas).toFixed(2);
-
-        // Atualiza o gráfico com base no que o usuario digitou
-        grafico.data.datasets[0].data = [totalEntradas, totalSaidas];
-        grafico.update();
-      }
-
-      // Função que baixa o relatório PDF. A função foi declarado como async como uma medida preventiva de operações assíncronas
-      //(como buscar dados ou processar algo em paralelo).
-      async function baixarRelatorio() {
-        const { jsPDF } = window.jspdf; // Importa o pacote da biblioteca jsPDF
-        const pdf = new jsPDF(); // Cria o PDF
-
-        //série de configurações do PDF
-
-        pdf.setFontSize(18);
-        pdf.text("Relatório Financeiro", 105, 15, { align: "center" }); // 105 e 15 são as coordenadas do texto
-
-        // Adiciona subtítulo com data
-        const dataAtual = new Date().toLocaleDateString(); // pega a data do seu computador e coloca no PDF
-        pdf.setFontSize(12);
-        pdf.text(`Data: ${dataAtual}`, 105, 25, { align: "center" }); // 105 e 25 são as coordenadas do texto
-
-        // Adiciona as entradas e saídas (KPI's)
-        pdf.text(`Total de Entradas: R$ ${entradas.innerText}`, 15, 40); // numeros em amarelo são as coordenadas do pdf
-        pdf.text(`Total de Saídas: R$ ${saidas.innerText}`, 15, 50); // numeros em amarelo são as coordenadas do pdf
-        pdf.text(`Total Geral: R$ ${totalGeral.innerText}`, 15, 60); // numeros em amarelo são as coordenadas do pdf
-
-        // Converte o gráfico em uma imagem para conseguir colocar dentro do PDF
-        const image = grafico.toBase64Image();
-        pdf.addImage(image, "PNG", 15, 70, 180, 100); // Adiciona o gráfico ao PDF
-
-        // Baixa o PDF na maquina do usuário
-        pdf.save(`Relatorio_Financeiro_${dataAtual}.pdf`);
-      }
-    </script>
-  </body>
+      pdf.save(`Relatorio_Financeiro_${dataAtual}.pdf`);
+    }
+  </script>
+</body>
 </html>

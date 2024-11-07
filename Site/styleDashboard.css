@@ -1,10 +1,8 @@
-/* Reset básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
-  outline: none;
 }
 
 body {
@@ -15,25 +13,21 @@ body {
   height: 100vh;
 }
 
-/* Estrutura principal */
 main {
   width: 90%;
   max-width: 800px;
   background-color: #2f2841;
   padding: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   color: #f0ffffde;
-  overflow-y: auto;
-}
-/* Estilo do Título*/
-.titulo {
-  color:#53eca4;
-  display: flex;
-  justify-content: center;
 }
 
-/* Estilo do resumo */
+.titulo {
+  color: #53eca4;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .resumo {
   display: flex;
   justify-content: space-between;
@@ -43,16 +37,13 @@ main {
 }
 
 .resumo > div {
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0px 0px 5px #ccc;
-  border-radius: 10px;
   padding: 15px;
   width: 150px;
   background-color: #3f2c4a;
+  text-align: center;
+  border-radius: 10px;
 }
 
-/* Estilo do novo item */
 .novo-item {
   display: flex;
   gap: 10px;
@@ -68,7 +59,6 @@ main {
 
 .novo-item label {
   font-size: 14px;
-  color: #f0ffffde;
 }
 
 .novo-item input, .novo-item select {
@@ -80,10 +70,6 @@ main {
   color: #f0ffffde;
 }
 
-.novo-item input::placeholder, .novo-item select::placeholder {
-  color: #f0ffff94;
-}
-
 .botao-adicionar {
   padding: 10px;
   background-color: #53eca4;
@@ -92,14 +78,22 @@ main {
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s;
 }
 
-.botao-adicionar:hover {
-  background-color: #41b487;
+.botao-pdf {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-left: 293px;
+  background-color: #53eca4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
-/* Estilo da tabela */
 .tabela table {
   width: 100%;
   border-collapse: collapse;
@@ -110,43 +104,10 @@ main {
   padding: 10px;
   border: 1px solid #ddd;
   text-align: center;
-  color: #f0ffffde;
 }
 
-.tabela th {
-  background-color: #3f2c4a;
-  font-weight: bold;
-}
-
-.tabela button {
-  background: none;
-  border: none;
-  color: #D83121;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-/* Estilo do botão de baixar PDF */
-.botao-pdf {
-  width: 100%;
-  padding: 12px 20px;
-  background-color: #53eca4;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
-}
-
-.botao-pdf:hover {
-  background-color: #41b487;
-}
-
-/* Gráfico */
 canvas {
-  display: flex;
-  justify-content: center;
+  display: block;
   margin: 20px auto;
   max-width: 400px;
   max-height: 200px;
