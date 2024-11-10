@@ -81,17 +81,21 @@ main {
 }
 
 .botao-pdf {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
   padding: 10px;
-  margin-left: 293px;
   background-color: #53eca4;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+}
+
+.grafico_botao{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .tabela table {
