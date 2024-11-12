@@ -1,0 +1,118 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background-color: #201b2c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+main {
+  width: 90%;
+  max-width: 800px;
+  background-color: #2f2841;
+  padding: 20px;
+  border-radius: 10px;
+  color: #f0ffffde;
+}
+
+.titulo {
+  color: #53eca4;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.resumo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.resumo > div {
+  padding: 15px;
+  width: 150px;
+  background-color: #3f2c4a;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.novo-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  background-color: #3f2c4a;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.novo-item div {
+  flex: 1;
+}
+
+.novo-item label {
+  font-size: 14px;
+}
+
+.novo-item input, .novo-item select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #3f2c4a;
+  color: #f0ffffde;
+}
+
+.botao-adicionar {
+  padding: 10px;
+  background-color: #53eca4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.botao-pdf {
+
+  padding: 10px;
+  background-color: #53eca4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.grafico_botao{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.tabela table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.tabela th, .tabela td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+canvas {
+  display: block;
+  margin: 20px auto;
+  max-width: 400px;
+  max-height: 200px;
+}
