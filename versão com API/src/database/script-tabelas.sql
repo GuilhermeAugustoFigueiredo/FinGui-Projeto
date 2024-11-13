@@ -1,6 +1,6 @@
 CREATE DATABASE FinGui;
 USE FinGui;
-
+drop database fingui;
 CREATE TABLE cliente_cadastro (
     idCliente INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100),
@@ -19,7 +19,14 @@ CREATE TABLE itens_financas (
     CONSTRAINT chkTipo CHECK (tipo IN ('entrada', 'saida')),
     FOREIGN KEY (fkCliente) REFERENCES cliente_cadastro(idCliente)
 );
+-- INSERT INTO itens_financas (descricao, valor, tipo, fkCliente) VALUES
+--     ('conta de luz', 100000, 'saida', 1);
+
+truncate table itens_financas;
+truncate table cliente_cadastro;
+
 select * from cliente_cadastro;
+select * from itens_financas;
 -- SELECT 
 --     c.nome AS cliente,
 --     c.email,

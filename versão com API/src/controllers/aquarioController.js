@@ -46,4 +46,4 @@ function cadastrar(req, res) {
 module.exports = {
   buscarAquariosPorEmpresa,
   cadastrar
-}
+};
