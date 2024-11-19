@@ -83,7 +83,7 @@
   var totalGeral = document.querySelector(".total");
 
   var itens = [];
-
+  
   const grafico = new Chart(
     document.getElementById("grafico").getContext("2d"),
     {
@@ -95,7 +95,6 @@
       options: { responsive: true },
     }
   );
-
   function adicionarItem() {
     if (!descricao.value || !valor.value) {
       alert("Preencha todos os campos!");
@@ -107,7 +106,6 @@
       valor: parseFloat(valor.value),
       tipo: tipo.value,
     });
-
 
     fetch(`/dados/inserir`, {
             method: "post",
@@ -126,7 +124,6 @@
 
             if (resposta.ok) {
                 window.alert("itens cadastrados com sucesso pelo usuario de ID: " + idUsuario + "!");
-                finalizarAguardar();
             } else if (resposta.status == 404) {
                 window.alert("Deu 404!");
             } else {
@@ -145,6 +142,32 @@
 
   function excluirItem(indice) {
     itens.splice(indice, 1);
+    console.log('esse é o seu indice ' + indice)
+    fetch(`/dados/excluir`, {
+            method: "delete",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              indice: indice
+            })
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("itens excluidos com sucesso pelo usuario de ID: " + idUsuario + "!");
+                finalizarAguardar();
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404!");
+            } else {
+                throw ("Houve um erro ao excluir os itens! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
     carregarItens();
   }
 

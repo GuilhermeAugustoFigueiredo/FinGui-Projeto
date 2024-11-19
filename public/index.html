@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>FinGui | Home</title>
+
+    <script src="./js/sessao.js"></script>
+
+    <link rel="stylesheet" href="./styleHome.css" />
+    <link rel="icon" href="./assets/icon/favicon2.ico" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="container">
+        <h1 class="titulo">FinGui</h1>
+        <ul class="navbar">
+          <li class="agora">
+            <a href="#">Home</a>
+          </li>
+          <li>|</li>
+          <li>
+            <a href="login.html">Login</a>
+          </li>
+          <li>|</li>
+          <li>
+            <a href="cadastro.html">Cadastro</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="banner">
+      <div class="container">
+        <p>
+          Economizando <b style="color: #53eca4">hoje</b> para sonhar como o
+          <b style="color: #53eca4">amanhã</b>.
+        </p>
+      </div>
+    </div>
+
+    <div class="social">
+      <div class="container">
+        <div class="boxes">
+          <div class="box">
+            <h4 style="color: #53eca4">Missão</h4>
+            <p>
+              A FinGui surge como uma ferramenta de auxilio para pessoas que
+              buscam ter um maior controle de suas finanças pessoais, fazendo
+              isso de forma prática e simples com uma plataforma dinâmica e
+              intuitiva.
+            </p>
+          </div>
+          <div class="box">
+            <h4 style="color: #53eca4">Visão</h4>
+            <p>
+              Almejamos uma sociedade que tenha um compromisso com a saúde
+              financeira, que busque ao máximo evitar o endividamento e que
+              possui condições de realizar os seus sonhos.
+            </p>
+          </div>
+          <div class="box">
+            <h4 style="color: #53eca4">Valores</h4>
+            <p>
+              <b style="color: #53eca4">Praticidade:</b> Desenvolvemos uma
+              plataforma intuitiva e fácil de usar, promovendo a educação
+              financeira para todos.<br /><br />
+              <b style="color: #53eca4">Responsabilidade:</b> Acreditamos que um
+              controle maior das economias impacta muito positivamente na vida
+              financeira dos nossos usuários.<br /><br />
+              <b style="color: #53eca4">Comprometimento:</b> Estamos dedicados a
+              oferecer soluções financeiras que realmente auxiliem nossos
+              clientes a alcançar seus objetivos.<br /><br />
+              <b style="color: #53eca4">Disciplina:</b> Incentivamos o uso
+              consistente e responsável da plataforma para atingir estabilidade
+              e crescimento financeiro.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="input-corpo">
+      <p>
+        <b style="font-size: 20px; color: #53eca4">Ajude a FinGui a crescer!</b>
+        <br>
+        A FinGui tem como principal objetivo ajudar as pessoas a desenvolverem sua educação financeira de forma prática e eficiente. Para entendermos melhor suas necessidades, pedimos que selecione ao lado o principal motivo que levaria você a utilizar os serviços da FinGui .
+      </p>
+      <div class="input-opcoes">
+        <select id="slt_opcoes">
+          <option value="#" disabled>Selecione um</option>
+          <option
+            value="Quero possuir um melhor planejamento e controle do meu orçamento."
+          >
+            Quero possuir um melhor planejamento e controle do meu orçamento.
+          </option>
+          <option value="Estou endividado e quero sair das dívidas.">
+            Estou endividado e quero sair das dívidas.
+          </option>
+          <option
+            value="Quero construir reservas/poupanças e fazer investimentos."
+          >
+            Quero construir reservas/poupanças e fazer investimentos.
+          </option>
+          <option value="Não tenho um bom controle sobre meus gastos.">
+            Não tenho um bom controle sobre meus gastos.
+          </option>
+          <option value="Outra razão">Outra razão</option>
+        </select>
+        <button class="botao" onclick="registrar()">Enviar resultado</button>
+        <div id="div_mensagem"></div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <h4>Feito por uma equipe apaixonada por Finanças</h4>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  function registrar() {
+    var opcao = slt_opcoes.value;
+    console.log("essa é a opcão escolhida:" + opcao);
+    if (opcao == undefined || opcao == "#") {
+      alert("Houve um erro no envio da pesquisa!");
+    } else {
+      alert("Enviado! obrigado por participar da pesquisa");
+      fetch("/dados/registrar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          opcaoServer: opcao,
+        }),
+      })
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
+
+          if (resposta.ok) {
+            cardErro.style.display = "block";
+            alert("opcão inserida com sucesso...");
+
+            setTimeout(() => {
+              window.location = "login.html";
+            }, 1000);
+
+            limparFormulario();
+          } else {
+            throw "Houve um erro ao tentar realizar a inserção!";
+          }
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
+
+      return false;
+    }
+  }
+</script>

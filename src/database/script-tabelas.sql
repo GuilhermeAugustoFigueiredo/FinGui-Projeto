@@ -20,10 +20,18 @@ CREATE TABLE itens_financas (
     FOREIGN KEY (fkCliente) REFERENCES cliente_cadastro(idCliente)
 );
 
+CREATE TABLE opcoes_usuario (
+    idOpcao INT PRIMARY KEY AUTO_INCREMENT,
+    descricao VARCHAR(200)
+);
+
 select * from cliente_cadastro;
 select * from itens_financas;
+select * from opcoes_usuario;
 truncate table itens_financas;
 truncate table cliente_cadastro;
+truncate table opcoes_usuario;
+
  SELECT 
      c.nome AS cliente,
      c.email,
@@ -34,3 +42,5 @@ truncate table cliente_cadastro;
  	JOIN cliente_cadastro c 
  	ON i.fkCliente = c.idCliente 
  	ORDER BY c.nome;
+
+-- DELETE FROM itens_financas WHERE descricao = 'salario' AND valor = '3000' AND tipo = 'entrada' AND fkCliente = 1;
