@@ -8,19 +8,29 @@
       href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styleDashboard.css">
+    <link rel="icon" href="./assets/iconeFingui.ico" />
+    <link rel="stylesheet" href="styleDashboard.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   </head>
-  <body>
+  <body onload="itensSalvos()">
     <main>
       <h1 class="titulo">Organizador de Finanças</h1>
 
       <!-- Resumo das finanças -->
       <div class="resumo">
-        <div>Entrada: <br> R$ <span class="entradas">0.00</span></div>
-        <div>Saída: <br> R$ <span class="saidas">0.00</span></div>
-        <div>Total: <br> R$ <span class="total">0.00</span></div>
+        <div>
+          Entrada: <br />
+          R$ <span class="entradas">0.00</span>
+        </div>
+        <div>
+          Saída: <br />
+          R$ <span class="saidas">0.00</span>
+        </div>
+        <div>
+          Total: <br />
+          R$ <span class="total">0.00</span>
+        </div>
       </div>
 
       <!-- Campos para adicionar novo item -->
@@ -74,6 +84,8 @@
 </html>
 
 <script>
+  var itens = [];
+
   var tabela = document.querySelector("tbody");
   var descricao = document.getElementById("descricao");
   var valor = document.getElementById("valor");
@@ -82,8 +94,6 @@
   var saidas = document.querySelector(".saidas");
   var totalGeral = document.querySelector(".total");
 
-  var itens = [];
-  
   const grafico = new Chart(
     document.getElementById("grafico").getContext("2d"),
     {
@@ -95,6 +105,44 @@
       options: { responsive: true },
     }
   );
+
+  function itensSalvos() {
+    console.log('carregou os itens')
+
+    fetch(`/dados/carregar`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        descricao: descricao.value,
+        valor: parseFloat(valor.value),
+        tipo: tipo.value,
+        idUsuario: sessionStorage.ID_USUARIO,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          window.alert(
+            "itens carregados com sucesso pelo usuario de ID: " +
+              idUsuario +
+              "!"
+          );
+        } else if (resposta.status == 404) {
+          window.alert("Deu 404!");
+        } else {
+          throw (
+            "Houve um erro ao carregar os itens! Código da resposta: " +
+            resposta.status
+          );
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
   function adicionarItem() {
     if (!descricao.value || !valor.value) {
       alert("Preencha todos os campos!");
@@ -108,65 +156,78 @@
     });
 
     fetch(`/dados/inserir`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              descricao: descricao.value,
-              valor: parseFloat(valor.value),
-              tipo: tipo.value,
-              idUsuario: sessionStorage.ID_USUARIO
-            })
-        }).then(function (resposta) {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        descricao: descricao.value,
+        valor: parseFloat(valor.value),
+        tipo: tipo.value,
+        idUsuario: sessionStorage.ID_USUARIO,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
 
-            console.log("resposta: ", resposta);
+        if (resposta.ok) {
+          window.alert(
+            "itens cadastrados com sucesso pelo usuario de ID: " +
+              idUsuario +
+              "!"
+          );
+        } else if (resposta.status == 404) {
+          window.alert("Deu 404!");
+        } else {
+          throw (
+            "Houve um erro ao cadastrar os itens! Código da resposta: " +
+            resposta.status
+          );
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
 
-            if (resposta.ok) {
-                window.alert("itens cadastrados com sucesso pelo usuario de ID: " + idUsuario + "!");
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-            } else {
-                throw ("Houve um erro ao cadastrar os itens! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
-        });
-
-        descricao.value = "";
-        valor.value = "";
+    descricao.value = "";
+    valor.value = "";
 
     carregarItens();
   }
 
   function excluirItem(indice) {
+        
     itens.splice(indice, 1);
-    console.log('esse é o seu indice ' + indice)
+
     fetch(`/dados/excluir`, {
-            method: "delete",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              indice: indice
-            })
-        }).then(function (resposta) {
-
-            console.log("resposta: ", resposta);
-
-            if (resposta.ok) {
-                window.alert("itens excluidos com sucesso pelo usuario de ID: " + idUsuario + "!");
-                finalizarAguardar();
-            } else if (resposta.status == 404) {
-                window.alert("Deu 404!");
-            } else {
-                throw ("Houve um erro ao excluir os itens! Código da resposta: " + resposta.status);
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
-        });
+      method: 'delete',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        indice: indice + 1,
+        idUsuario: sessionStorage.ID_USUARIO,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+        console.log("esse é o seu indice " + indice);
+        if (resposta.ok) {
+          window.alert(
+            "itens excluidos com sucesso pelo usuario de ID: " + idUsuario + "!"
+          );
+        } else if (resposta.status == 404) {
+          window.alert("Deu 404!");
+        } else {
+          throw (
+            "Houve um erro ao excluir os itens! Código da resposta: " +
+            resposta.status
+          );
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
 
     carregarItens();
   }
@@ -193,15 +254,14 @@
   }
 
   function atualizarTotais() {
-    var totalEntradas = 0; 
-    var totalSaidas = 0; 
-
+    var totalEntradas = 0;
+    var totalSaidas = 0;
 
     itens.forEach((item) => {
-      if (item.tipo === "Entrada") {
+      if (item.tipo == "Entrada") {
         totalEntradas += item.valor;
       } else {
-        totalSaidas += item.valor; 
+        totalSaidas += item.valor;
       }
     });
 

@@ -7,11 +7,15 @@ var dadosController = require("../controllers/dadosController");
 router.post("/inserir", function (req, res) {
     dadosController.inserir(req, res);
 })
-router.post("/excluir", function (req, res) {
+router.delete("/excluir", function (req, res) {
     dadosController.excluir(req, res);
 })
 
 router.post("/registrar", function (req, res) {
     dadosController.registrar(req, res);
+})
+
+router.get("/carregar", function (req, res) {
+    dadosController.carregar(req, res);
 })
 module.exports = router;

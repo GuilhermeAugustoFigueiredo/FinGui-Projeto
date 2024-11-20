@@ -19,4 +19,10 @@ function registrar(opcao) {
     return database.executar(instrucaoSql);
 }
 
-module.exports = {inserir, excluir, registrar}
+function carregar(fkCliente) {
+    var instrucaoSql = `SELECT descricao, valor, tipo, fkCliente FROM itens_financas WHERE fkCliente = ${fkCliente};`
+
+    return database.executar(instrucaoSql);
+}
+
+module.exports = {inserir, excluir, registrar, carregar}

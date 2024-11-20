@@ -23,4 +23,10 @@ function registrar(req, res) {
     dadosModel.registrar(opcao)
 }
 
-module.exports = {inserir, excluir, registrar};
+function carregar(req, res) {
+    var idUsuario = req.body.idUsuario;
+    console.log(req.body)
+    dadosModel.carregar(idUsuario)
+}
+
+module.exports = {inserir, excluir, registrar, carregar};

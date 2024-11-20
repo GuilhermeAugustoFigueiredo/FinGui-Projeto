@@ -19,7 +19,6 @@ CREATE TABLE itens_financas (
     CONSTRAINT chkTipo CHECK (tipo IN ('entrada', 'saida')),
     FOREIGN KEY (fkCliente) REFERENCES cliente_cadastro(idCliente)
 );
-
 CREATE TABLE opcoes_usuario (
     idOpcao INT PRIMARY KEY AUTO_INCREMENT,
     descricao VARCHAR(200)
@@ -43,4 +42,3 @@ truncate table opcoes_usuario;
  	ON i.fkCliente = c.idCliente 
  	ORDER BY c.nome;
 
--- DELETE FROM itens_financas WHERE descricao = 'salario' AND valor = '3000' AND tipo = 'entrada' AND fkCliente = 1;
