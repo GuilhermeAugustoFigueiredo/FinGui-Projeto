@@ -18,4 +18,9 @@ router.post("/registrar", function (req, res) {
 router.get("/carregar", function (req, res) {
     dadosController.carregar(req, res);
 })
+
+router.get("/obterGrafico", function (req, res) {
+    dadosController.obterGrafico(req, res);
+})
+
 module.exports = router;

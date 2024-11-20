@@ -8,6 +8,7 @@ function inserir(descricao, valor, tipo, fkCliente) {
 }
 function excluir(indice, idUsuario) {
     var instrucaoSql = `DELETE FROM itens_financas WHERE idItem = ${indice} AND fkCliente = ${idUsuario}`
+    // var instrucaoSql = `DELETE FROM itens_financas WHERE idItem = ${indice} AND fkCliente = ${idUsuario} IN (SELECT idtem, fkCliente FROM );`
 
     return database.executar(instrucaoSql);
 }
@@ -25,4 +26,10 @@ function carregar(fkCliente) {
     return database.executar(instrucaoSql);
 }
 
-module.exports = {inserir, excluir, registrar, carregar}
+function obterGrafico() {
+    var instrucaoSql = `SELECT * FROM opcoes_usuario;`
+
+    return database.executar(instrucaoSql);
+}
+
+module.exports = {inserir, excluir, registrar, carregar, obterGrafico}

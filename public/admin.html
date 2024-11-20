@@ -12,8 +12,7 @@
 <!-- Título para o gráfico de linhas -->
 Gráfico de linhas
 <div>
-  <!-- Elemento canvas onde o gráfico de linha será desenhado -->
-  <canvas id="linha"></canvas>
+
   <!-- Elemento canvas onde o gráfico de barra será desenhado -->
   <canvas id="barra"></canvas>
 </div>
@@ -22,66 +21,41 @@ Gráfico de linhas
 </html>
 <script>
 
+  // Como eu não configurei as rotas, eu criei um array com os dados para simular a obtenção dos dados
+  var dados = []
+
+
 // Função chamada ao carregar a página para obter e processar os dados
 function obterDados(){
   // Aqui seria a função que obteria os dados do banco de dados
   // No caso, aqui você colocaria o fetch que teria o endereço da sua rota que você criou na pasta /routes e chamaria a função plotarGraficoLinha nessa função. Exemplo:
  
-  // fetch('/obterDados')
-  // .then(function(response){
-  //   return response.json();
-  // })
-  // .then(function(data){
-  //   plotarGraficoLinha(data);
-  //   plotarGraficoBarra(data);
-  // })
-  // .catch(function(err){
-  //   console.log(err);
-  // })
+  fetch('/dados/obterGrafico')
+  .then(function(response){
+    return response.json();
+  })
+  .then(function(data){
+    plotarGraficoBarra(data);
+  })
+  .catch(function(err){
+    console.log(err);
+  })
 
-  // Como eu não configurei as rotas, eu criei um array com os dados para simular a obtenção dos dados
-  var dados = [{
-    jogador:'endrika',
-    votos: 10
-  },
-  {
-    jogador:'João',
-    votos: 5
-  },
-  {
-    jogador:'Maria',
-    votos: 15
-  },
-  {
-    jogador:'José',
-    votos: 20
-  },
-  {
-    jogador:'Pedro',
-    votos: 25
-  },
-  {
-    jogador:'Ana',
-    votos: 30
-  }]
 
-  // Chamando a função para plotar o gráfico de linha com os dados
-  plotarGraficoLinha(dados);
   // Chamando a função para plotar o gráfico de barra com os dados
   plotarGraficoBarra(dados)
 }
-
 
 // Função para plotar o gráfico de barra
 function plotarGraficoBarra(dados){
 
   var votos = [];
-  var jogadores = [];
+  var opcao = [];
 
   // Preenchendo os arrays com os dados
   for(var i = 0; i < dados.length; i++){
     votos.push(dados[i].votos);
-    jogadores.push(dados[i].jogador);
+    opcao.push(dados[i].opcao);
   }
 
   // Capturando o elemento canvas pelo id 
@@ -90,9 +64,9 @@ function plotarGraficoBarra(dados){
   var myChart = new Chart(ctx, {
       type: 'bar', // Tipo de gráfico: barra
       data: { // Dados para o gráfico
-          labels: jogadores, // Rótulos no eixo X
+          labels: opcao, // Rótulos no eixo X
           datasets: [{
-              label: 'Votos', // Nome do conjunto de dados
+              label: 'votos', // Nome do conjunto de dados
               data: votos, // Dados dos votos
               backgroundColor: [
                   'rgba(255, 99, 132, 0.2)', // Cor de fundo das barras

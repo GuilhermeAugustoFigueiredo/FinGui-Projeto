@@ -29,4 +29,9 @@ function carregar(req, res) {
     dadosModel.carregar(idUsuario)
 }
 
-module.exports = {inserir, excluir, registrar, carregar};
+function obterGrafico(req, res) {
+    var opcao = req.body.opcaoServer;
+    console.log(req.body)
+    dadosModel.carregar(opcao)
+}
+module.exports = {inserir, excluir, registrar, carregar, obterGrafico};
