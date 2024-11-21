@@ -30,8 +30,9 @@ function carregar(req, res) {
 }
 
 function obterGrafico(req, res) {
-    var opcao = req.body.opcaoServer;
+    var opcao = req.body.opcaoServer
     console.log(req.body)
+    console.log('foi no controller')
     dadosModel.carregar(opcao)
 }
 module.exports = {inserir, excluir, registrar, carregar, obterGrafico};

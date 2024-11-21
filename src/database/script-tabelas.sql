@@ -1,6 +1,5 @@
 CREATE DATABASE FinGui;
 USE FinGui;
-drop database fingui;
 CREATE TABLE cliente_cadastro (
     idCliente INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100),
@@ -41,4 +40,9 @@ truncate table opcoes_usuario;
  	JOIN cliente_cadastro c 
  	ON i.fkCliente = c.idCliente 
  	ORDER BY c.nome;
+
+
+insert into opcoes_usuario (descricao) VALUES
+(2);
+
 

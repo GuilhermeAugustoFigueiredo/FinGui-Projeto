@@ -3,7 +3,6 @@ var router = express.Router();
 
 var dadosController = require("../controllers/dadosController");
 
-//Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
 router.post("/inserir", function (req, res) {
     dadosController.inserir(req, res);
 })
@@ -20,6 +19,7 @@ router.get("/carregar", function (req, res) {
 })
 
 router.get("/obterGrafico", function (req, res) {
+    console.log('foi na rota')
     dadosController.obterGrafico(req, res);
 })
 

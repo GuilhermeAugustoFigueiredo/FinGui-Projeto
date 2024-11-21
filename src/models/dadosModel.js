@@ -28,7 +28,7 @@ function carregar(fkCliente) {
 
 function obterGrafico() {
     var instrucaoSql = `SELECT * FROM opcoes_usuario;`
-
+    console.log('foi no models')
     return database.executar(instrucaoSql);
 }
 
