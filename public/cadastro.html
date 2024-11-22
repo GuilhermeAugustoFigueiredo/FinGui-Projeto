@@ -94,6 +94,7 @@
     var cpfVar = cpf_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
+    var nivelVar = 0;
 
     var erros = []; // Array para armazenar mensagens de erro
 
@@ -134,6 +135,7 @@
         cpfServer: cpfVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
+        nivelServer: nivelVar
       }),
     })
       .then(function (resposta) {

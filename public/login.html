@@ -64,6 +64,7 @@
 </html>
 
 <script>
+  var nivelConta = 0;
       
   function entrar() {
     aguardar();
@@ -77,8 +78,6 @@
         "(Mensagem de erro para todos os campos em branco)";
       finalizarAguardar();
       return false;
-    }else if(emailVar == 'admin' && senhaVar == 'admin') {
-      window.location = "./admin.html"
     }else {
       setInterval(sumirMensagem, 5000);
     }
@@ -102,13 +101,19 @@
             sessionStorage.EMAIL_USUARIO = json.email;
             sessionStorage.NOME_USUARIO = json.nome;
             sessionStorage.ID_USUARIO = json.id;
+            nivelConta = json.nivel;
 
-            setTimeout(function () {
+            if(nivelConta == 1) {
               alert(
-                "Login realizado com sucesso! Redirecionando para a Dashboard..."
-              );
-              window.location = "./dashboardFinancas.html";
-            }, 1000);
+                  "Login realizado com sucesso! Redirecionando para a conta administradora..."
+                );
+                window.location = "./admin.html";
+            } else {
+                alert(
+                  "Login realizado com sucesso! Redirecionando para a ferramenta!..."
+                );
+                window.location = "./dashboardFinancas.html";
+            }
           });
         } else {
           resposta.text().then((texto) => {

@@ -22,6 +22,7 @@ function autenticar(req, res) {
             cpf: resultadoAutenticar[0].cpf,
             email: resultadoAutenticar[0].email,
             senha: resultadoAutenticar[0].senha,
+            nivel: resultadoAutenticar[0].nivel
           });
         } else if (resultadoAutenticar.length == 0) {
           res.status(403).send("Email e/ou senha inválido(s)");
@@ -46,6 +47,7 @@ function cadastrar(req, res) {
   var cpf = req.body.cpfServer;
   var email = req.body.emailServer;
   var senha = req.body.senhaServer;
+  var nivel = req.body.nivelServer;
 
   // Faça as validações dos valores
   if (nome == undefined) {
@@ -56,7 +58,7 @@ function cadastrar(req, res) {
     res.status(400).send("Sua senha está undefined!");
   } else {
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-    usuarioModel.cadastrar(nome, cpf, email, senha)
+    usuarioModel.cadastrar(nome, cpf, email, senha, nivel)
       .then(function (resultado) {
         res.json(resultado);
       })
