@@ -1,40 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adiministrador</title>
-</head>
-<body>
-  <div id="div_usuariosCadastrados"></div>
-  <button onclick="mostrarUsuarios()">Ver usuários cadastrados</button>
-  <div id="div_usuariosPesquisa"></div>
-  <button onclick="mostrarPesquisa()">Ver resultado da pesquisa</button>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styleAdmin.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Adiministrador</title>
+  </head>
+  <body onload="mostrarPesquisa(), mostrarUsuarios()"> 
+    <div id="div_usuariosCadastrados"></div>
+    <button class="botao"  onclick="mostrarUsuarios()">Ver usuários cadastrados</button>
+    <div id="div_usuariosPesquisa"></div>
+    <button class="botao" onclick="mostrarPesquisa()">Ver resultado da pesquisa</button>
+
+    <div id="div_grafico">
+      <canvas id="grafico-setor" style="width: 10px"></canvas>
+    </div>
+  </bod>
 </html>
 
-
-
 <script>
-
-function mostrarUsuarios() {
-  fetch("/respostas/verUsuarios", {
+  function mostrarUsuarios() {
+    fetch("/respostas/verUsuarios", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     })
       .then(function (resposta) {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          resposta.json().then(json => {
-          setTimeout(() => {
-            console.log(json[0].Respostas)
-            div_usuariosCadastrados.innerHTML = `${json[0].Respostas}`
-          }, 1000);
-        })
-      }
+          resposta.json().then((json) => {
+            setTimeout(() => {
+              console.log(json[0].Respostas);
+              div_usuariosCadastrados.innerHTML = `Total de usuários cadastrados: ${json[0].Respostas}`;
+            }, 0);
+          });
+        }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
@@ -44,23 +47,55 @@ function mostrarUsuarios() {
   }
 
   function mostrarPesquisa() {
-  fetch("/respostas/verPesquisa", {
+    var desc_atual = "";
+    var resposta_atual = "";
+    var mensagem = "";
+
+    var listaDesc = [];
+    var listaResp = [];
+
+    fetch("/respostas/verPesquisa", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     })
       .then(function (resposta) {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          resposta.json().then(json => {
-          setTimeout(() => {
-            console.log(json[0].Respostas)
-            div_usuariosPesquisa.innerHTML = `${json[0].Respostas} ${json[0].Descrição}`
-          }, 1000);
-        })
-      }
+          resposta.json().then((json) => {
+            console.log(json.lista);
+            for (var i = 0; i < json.lista.length; i++) {
+              desc_atual = json.lista[i].Descricao;
+              resposta_atual = json.lista[i].Respostas;
+
+              listaDesc.push(desc_atual);
+              listaResp.push(resposta_atual);
+
+              mensagem += `
+              Descrição: ${desc_atual} <br>
+              Resultados: ${resposta_atual} <br> <br>
+              `;
+            }
+            div_usuariosPesquisa.innerHTML = mensagem;
+
+            var ctx = document.getElementById("grafico-setor");
+
+            var myChart = new Chart(ctx, {
+              type: "pie",
+              data: {
+                labels: listaDesc,
+                datasets: [
+                  {
+                    data: listaResp,
+                    backgroundColor: ["red", "green", "blue", "aqua", "purple"],
+                  },
+                ],
+              },
+            });
+          });
+        }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
@@ -68,6 +103,4 @@ function mostrarUsuarios() {
 
     return false;
   }
-
-
 </script>

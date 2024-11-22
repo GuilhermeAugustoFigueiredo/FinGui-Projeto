@@ -16,7 +16,7 @@ function verPesquisa() {
       "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
     );
     var instrucaoSql = `
-          select descricao as Descrição, count(descricao)as Respostas FROM opcoes_usuario GROUP BY descricao order by Respostas desc;
+          select descricao as Descricao, count(descricao) as Respostas FROM opcoes_usuario GROUP BY descricao order by Respostas desc;
       `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

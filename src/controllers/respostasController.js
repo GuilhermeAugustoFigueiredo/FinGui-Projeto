@@ -22,7 +22,9 @@ function verPesquisa(req, res) {
       // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
       respostasModel.verPesquisa()
         .then(function (resultado) {
-          res.json(resultado);
+          res.json({
+           lista: resultado
+        });
         })
         .catch(function (erro) {
           console.log(erro);

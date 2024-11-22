@@ -32,7 +32,7 @@ truncate table itens_financas;
 truncate table cliente_cadastro;
 truncate table opcoes_usuario;
 
-
+select descricao as Descrição, count(descricao)as Respostas FROM opcoes_usuario GROUP BY descricao;
 select descricao as Descrição, count(descricao)as Respostas FROM opcoes_usuario GROUP BY descricao order by Respostas desc;
 select count(idCliente) as Respostas from cliente_cadastro;
 
