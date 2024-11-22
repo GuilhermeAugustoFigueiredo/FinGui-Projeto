@@ -7,16 +7,18 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Adiministrador</title>
   </head>
-  <body onload="mostrarPesquisa(), mostrarUsuarios()"> 
+  <body onload="mostrarPesquisa(), mostrarUsuarios()">
+    <div class="boxes">
     <div id="div_usuariosCadastrados"></div>
-    <button class="botao"  onclick="mostrarUsuarios()">Ver usuários cadastrados</button>
+    <br>
     <div id="div_usuariosPesquisa"></div>
-    <button class="botao" onclick="mostrarPesquisa()">Ver resultado da pesquisa</button>
-
+    <br>
     <div id="div_grafico">
       <canvas id="grafico-setor" style="width: 10px"></canvas>
     </div>
-  </bod>
+  </div>
+
+  </body>
 </html>
 
 <script>

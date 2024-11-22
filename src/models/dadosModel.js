@@ -20,16 +20,6 @@ function registrar(opcao) {
     return database.executar(instrucaoSql);
 }
 
-function carregar(fkCliente) {
-    var instrucaoSql = `SELECT descricao, valor, tipo, fkCliente FROM itens_financas WHERE fkCliente = ${fkCliente};`
 
-    return database.executar(instrucaoSql);
-}
 
-function obterGrafico() {
-    var instrucaoSql = `SELECT * FROM opcoes_usuario;`
-    console.log('foi no models')
-    return database.executar(instrucaoSql);
-}
-
-module.exports = {inserir, excluir, registrar, carregar, obterGrafico}
+module.exports = {inserir, excluir, registrar}
