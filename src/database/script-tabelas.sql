@@ -26,23 +26,13 @@ CREATE TABLE opcoes_usuario (
 select * from cliente_cadastro;
 select * from itens_financas;
 select * from opcoes_usuario;
+
+
 truncate table itens_financas;
 truncate table cliente_cadastro;
 truncate table opcoes_usuario;
 
- SELECT 
-     c.nome AS cliente,
-     c.email,
-     i.descricao,
-     i.valor,
-     i.tipo
- 	FROM itens_financas i
- 	JOIN cliente_cadastro c 
- 	ON i.fkCliente = c.idCliente 
- 	ORDER BY c.nome;
 
-
-insert into opcoes_usuario (descricao) VALUES
-(2);
-
+select descricao as Descrição, count(descricao)as Respostas FROM opcoes_usuario GROUP BY descricao order by Respostas desc;
+select count(idCliente) as Respostas from cliente_cadastro;
 
