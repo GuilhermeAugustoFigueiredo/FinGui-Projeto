@@ -12,4 +12,8 @@ router.get("/verPesquisa", function (req, res) {
     respostasController.verPesquisa(req, res);
 })
 
+router.get("/verRespostas", function (req, res) {
+    respostasController.verRespostas(req, res);
+})
+
 module.exports = router;

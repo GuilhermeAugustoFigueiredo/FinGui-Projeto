@@ -1,0 +1,49 @@
+
+  
+  body {
+    background-color: #201b2c; 
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+  }
+  
+  .boxes {
+    width: 700px;
+    padding: 20px;
+    background-color: #2f2841;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  #div_usuariosCadastrados,
+  #div_responderamPesquisa{
+    background-color: #3f2c4a; 
+    padding: 15px; 
+    margin-bottom: 20px;
+    border-radius: 10px; 
+    text-align: center;
+    width: auto ;
+    height: auto; 
+    color: #fff;
+    font-size: 30px; 
+  }
+  #div_usuariosPesquisa {
+    background-color: #3f2c4a; 
+    padding: 15px; 
+    margin-bottom: 20px;
+    border-radius: 10px; 
+    text-align: center;
+    width: auto ;
+    height: auto; 
+    color: #fff;
+    font-size: 20px;
+    text-align: left; 
+  }
+  
+  
+  #div_grafico {
+    display: flex;
+    justify-content: center;
+  }
+  

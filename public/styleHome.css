@@ -63,7 +63,8 @@ body {
 }
 
 .box {
-    width: 300px;
+    width: auto;
+    height: auto;
     padding: 20px;
     background-color: #2f2841;
     border-radius: 10px;

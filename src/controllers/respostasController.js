@@ -10,7 +10,7 @@ function verUsuarios(req, res) {
       .catch(function (erro) {
         console.log(erro);
         console.log(
-          "\nHouve um erro ao realizar o cadastro! Erro: ",
+          "\nHouve um erro ao realizar a consulta! Erro: ",
           erro.sqlMessage
         );
         res.status(500).json(erro.sqlMessage);
@@ -29,7 +29,7 @@ function verPesquisa(req, res) {
         .catch(function (erro) {
           console.log(erro);
           console.log(
-            "\nHouve um erro ao realizar o cadastro! Erro: ",
+            "\nHouve um erro ao realizar a consulta! Erro: ",
             erro.sqlMessage
           );
           res.status(500).json(erro.sqlMessage);
@@ -37,7 +37,26 @@ function verPesquisa(req, res) {
     
   }
 
+  function verRespostas(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+      // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+      respostasModel.verRespostas()
+        .then(function (resultado) {
+          res.json(resultado);
+        })
+        .catch(function (erro) {
+          console.log(erro);
+          console.log(
+            "\nHouve um erro ao realizar a consulta! Erro: ",
+            erro.sqlMessage
+          );
+          res.status(500).json(erro.sqlMessage);
+        });
+    
+  }
+  
 module.exports = {
   verUsuarios,
-  verPesquisa
+  verPesquisa,
+  verRespostas
 };
